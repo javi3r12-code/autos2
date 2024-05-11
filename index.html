@@ -14,7 +14,7 @@
     <div style="display: flex; justify-content: center; align-items: center;" >
         <div style="background-color: coral; width: 450px;" >
             <form id="formulario" action="" style="margin: 25px;" >
-                <h2>Datos Automoviles aasdadadasdsdasda</h2>
+                <h2>Datos Automoviles</h2>
                 <br>
                 <label for="patente">Ingrese la patente del automovil:</label> <br>
                 <input type="text" name="patente" id="patente" placeholder="Patente">
@@ -52,22 +52,24 @@
             var modelo = document.getElementById("modelo").value
             var anio = document.getElementById("anio").value;
 
+            if (patente != NULL && marca != NULL && modelo != NULL && anio != NULL  ) {
+                localStorage.setItem("Patente", patente);
+                localStorage.setItem("Marca", marca);
+                localStorage.setItem("Modelo", modelo);
+                localStorage.setItem("Anio", anio);
 
-            localStorage.setItem("Patente", patente);
-            localStorage.setItem("Marca", marca);
-            localStorage.setItem("Modelo", modelo);
-            localStorage.setItem("Anio", anio);
-
-
-            document.getElementById("patente").value = "";
-            document.getElementById("marca").value = "";
-            document.getElementById("modelo").value = "";
-            document.getElementById("anio").value = "";
+                document.getElementById("patente").value = "";
+                document.getElementById("marca").value = "";
+                document.getElementById("modelo").value = "";
+                document.getElementById("anio").value = "";
+                
+            }   
 
 
         };  
    
-        function Mostrar(){                    
+        function Mostrar(){     
+                         
             var patente = localStorage.getItem("Patente");
             var marca = localStorage.getItem("Marca");
             var modelo = localStorage.getItem("Modelo");
