@@ -9,129 +9,73 @@
     crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+    <style>
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: coral;
+            width: 450px;
+            padding: 25px;
+            margin-right: 20px; 
+        }
+
+        .list-container {
+            flex-grow: 1;
+            max-height: 750px;
+            overflow-y: auto;
+            background-color: burlywood;
+            height: 750pxgit ;
+        }
+    </style>
 </head>
 <body style="background-color: cornsilk;">
-    <div style="display: flex; justify-content: center; align-items: center;" >
-        <div style="background-color: coral; width: 450px;" >
-            <form id="formulario" action="" style="margin: 25px;" >
+    <div class="container" >
+        <div class="form-container">
+            <form id="formulario"  style="margin: 25px;" >
                 <h2>Datos Automoviles</h2>
                 <br>
                 <label for="patente">Ingrese la patente del automovil:</label> <br>
                 <input type="text" name="patente" id="patente" placeholder="Patente">
+                <span id="s_pat" style="display: none;">Falta patente</span>
                 <br>
                 <label for="marca">Ingrese la marca del automovil:</label> <br>
                 <input type="text" name="marca" id="marca" placeholder="Marca">
+                <span id="s_mar" style="display: none;">Falta Marca</span>
                 <br>
                 <label for="modelo">Ingrese el modelo del automovil:</label> <br>
                 <input type="text" name="modelo" id="modelo" placeholder="Modelo">
+                <span id="s_mod" style="display: none;">Falta modelo</span>
                 <br>
                 <label for="anio">Ingrese el año del que es el automovil:</label> <br>
                 <input type="number" name="anio" id="anio" placeholder="Año">
+                <span id="s_anio" style="display: none;">Falta año</span>
                 <br>
-                <button type="submit" name="btn_g" id="btn_g" class="btn btn-primary" onclick="Salve()">Guardar</button>
+                <button type="submit" name="btn_g" id="btn_g" class="btn btn-primary" >Guardar</button>
                 <button type="button" name="btn_m" id="btn_m" class="btn btn-primary" onclick="Mostrar()">Mostrar</button>
                 <br>
             </form>
-                <br>
-                <textarea name="datos" id="datos" cols="30" rows="10"></textarea>
-            <ul id="datos_li" >
-
-
-            </ul>
-        </div>
+            <br>
+                <h2>Ultimo automovil añadido</h2>
+                <textarea name="datos" id="datos" cols="30" rows="10" style="margin: 25px; width: 300px;; max-height: 300px;"></textarea>
+            </div>
+            <div class="list-container">
+                <h2 id="titulo_li" style="display: none;">Listado de todos los automoviles</h2>
+                <ul id="datos_li"  >
+                </ul>
+            </div>
+        
     </div>
    
    
-       
+    <script src="autos.js"></script>
 </body>
-<script>
-        //$('#btn_g').click(function(){  
-        function Save(){    
-            var patente = document.getElementById("patente").value;
-            var marca = document.getElementById("marca").value;
-            var modelo = document.getElementById("modelo").value
-            var anio = document.getElementById("anio").value;
 
-            if (patente != NULL && marca != NULL && modelo != NULL && anio != NULL  ) {
-                localStorage.setItem("Patente", patente);
-                localStorage.setItem("Marca", marca);
-                localStorage.setItem("Modelo", modelo);
-                localStorage.setItem("Anio", anio);
-
-                document.getElementById("patente").value = "";
-                document.getElementById("marca").value = "";
-                document.getElementById("modelo").value = "";
-                document.getElementById("anio").value = "";
-                
-            }   
-
-
-        };  
-   
-        function Mostrar(){     
-                         
-            var patente = localStorage.getItem("Patente");
-            var marca = localStorage.getItem("Marca");
-            var modelo = localStorage.getItem("Modelo");
-            var anio = localStorage.getItem("Anio");
-
-
-            document.getElementById("datos").innerHTML = "\npatente: "+ patente +
-            "\nmarca: " + marca + "\nmodelo: " + modelo +"\naño: " + anio;
-
-
-            document.getElementById("datos_li").innerHTML = "<ul> <li>\npatente:"+ patente + "</li> <li>\nmarca: " + marca +"</li> <li>\nmodelo: " + modelo+"</li> <li>\naño: " + anio +"</li> </ul>"
-        };  
-       
-        function Salve(){
-            var patente = document.getElementById("patente").value;
-            var marca = document.getElementById("marca").value;
-            var modelo = document.getElementById("modelo").value
-            var anio = document.getElementById("anio").value;
-           
-           
-
-
-            const automoviles = {Patente: patente, Marca: marca, Modelo: modelo, Anio: anio }
-           
-            localStorage.setItem( 'i', JSON.stringify(automoviles))
-           
-            let auto = JSON.parse(localStorage.getItem('i'))
-
-
-            console.log(auto)
-           
-            ;
-
-
-        }
-
-
-        $(document).ready(function(){
-
-
-
-
-            $("#formulario").validate({
-                rules:{
-                    patente: {required:true, minlenght:2},
-                    marca: {required:true, minlenght:3},
-                    modelo: {required:true, minlenght:3 },
-                    anio: {required:true, minlenght:4, }
-                },
-                messages:{
-                    patente  : "El campo patente es obligatorio",
-                    marca: "El campo marca es obligatorio",
-                    modelo: "El campo modelo es obligatorio",
-                    marca: "El campo marca es obligatorio",
-                    anio: "El campo año es obligatorio",
-                   
-               
-                }
-            })
-        })
-   
-</script>
 
 
 
