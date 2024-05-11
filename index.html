@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+</head>
+<body style="background-color: cornsilk;">
+    <div style="display: flex; justify-content: center; align-items: center;" >
+        <div style="background-color: coral; width: 450px;" >
+            <form id="formulario" action="" style="margin: 25px;" >
+                <h2>Datos Automoviles</h2>
+                <br>
+                <label for="patente">Ingrese la patente del automovil:</label> <br>
+                <input type="text" name="patente" id="patente" placeholder="Patente">
+                <br>
+                <label for="marca">Ingrese la marca del automovil:</label> <br>
+                <input type="text" name="marca" id="marca" placeholder="Marca">
+                <br>
+                <label for="modelo">Ingrese el modelo del automovil:</label> <br>
+                <input type="text" name="modelo" id="modelo" placeholder="Modelo">
+                <br>
+                <label for="anio">Ingrese el año del que es el automovil:</label> <br>
+                <input type="number" name="anio" id="anio" placeholder="Año">
+                <br>
+                <button type="submit" name="btn_g" id="btn_g" class="btn btn-primary" onclick="Salve()">Guardar</button>
+                <button type="button" name="btn_m" id="btn_m" class="btn btn-primary" onclick="Mostrar()">Mostrar</button>
+                <br>
+            </form>
+                <br>
+                <textarea name="datos" id="datos" cols="30" rows="10"></textarea>
+            <ul id="datos_li" >
+
+
+            </ul>
+        </div>
+    </div>
+   
+   
+       
+</body>
+<script>
+        //$('#btn_g').click(function(){  
+        function Save(){    
+            var patente = document.getElementById("patente").value;
+            var marca = document.getElementById("marca").value;
+            var modelo = document.getElementById("modelo").value
+            var anio = document.getElementById("anio").value;
+
+
+            localStorage.setItem("Patente", patente);
+            localStorage.setItem("Marca", marca);
+            localStorage.setItem("Modelo", modelo);
+            localStorage.setItem("Anio", anio);
+
+
+            document.getElementById("patente").value = "";
+            document.getElementById("marca").value = "";
+            document.getElementById("modelo").value = "";
+            document.getElementById("anio").value = "";
+
+
+        };  
+   
+        function Mostrar(){                    
+            var patente = localStorage.getItem("Patente");
+            var marca = localStorage.getItem("Marca");
+            var modelo = localStorage.getItem("Modelo");
+            var anio = localStorage.getItem("Anio");
+
+
+            document.getElementById("datos").innerHTML = "\npatente: "+ patente +
+            "\nmarca: " + marca + "\nmodelo: " + modelo +"\naño: " + anio;
+
+
+            document.getElementById("datos_li").innerHTML = "<ul> <li>\npatente:"+ patente + "</li> <li>\nmarca: " + marca +"</li> <li>\nmodelo: " + modelo+"</li> <li>\naño: " + anio +"</li> </ul>"
+        };  
+       
+        function Salve(){
+            var patente = document.getElementById("patente").value;
+            var marca = document.getElementById("marca").value;
+            var modelo = document.getElementById("modelo").value
+            var anio = document.getElementById("anio").value;
+           
+           
+
+
+            const automoviles = {Patente: patente, Marca: marca, Modelo: modelo, Anio: anio }
+           
+            localStorage.setItem( 'i', JSON.stringify(automoviles))
+           
+            let auto = JSON.parse(localStorage.getItem('i'))
+
+
+            console.log(auto)
+           
+            ;
+
+
+        }
+
+
+        $(document).ready(function(){
+
+
+
+
+            $("#formulario").validate({
+                rules:{
+                    patente: {required:true, minlenght:2},
+                    marca: {required:true, minlenght:3},
+                    modelo: {required:true, minlenght:3 },
+                    anio: {required:true, minlenght:4, }
+                },
+                messages:{
+                    patente  : "El campo patente es obligatorio",
+                    marca: "El campo marca es obligatorio",
+                    modelo: "El campo modelo es obligatorio",
+                    marca: "El campo marca es obligatorio",
+                    anio: "El campo año es obligatorio",
+                   
+               
+                }
+            })
+        })
+   
+</script>
+
+
+
+
+
+
+</html>
+
